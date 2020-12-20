@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orinoco - Meubles en chêne</title>
+</head>
+
+<body>
+  <header class="py-4 bg-light d-flex align-items-stretch shadow-sm">
+    <div class="container-fluid d-flex align-items-center">
+      <h1 class="d-flex align-items-center fs-4 mb-0">
+        <a href="/">
+          <img src="/images/logo.png" height="45" class="me-3" alt="Orinoco">
+        </a>
+      </h1>
+      <div class="justify-content-between align-items-center ms-auto">
+        <a href="<%= require('/configuration/routes').default.checkout %>" class="btn btn-link">
+          Mon Panier<span class="ms-2 badge bg-secondary text-dark total-items-cart d-none d-sm-inline-block">0</span>
+          <span class="visually-hidden">produits</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 text-primary">Meubles en chêne</h2>
+      <div class="d-flex justify-content-center" id="data-loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+      <div id="products"></div>
+    </div>
+  </main>
+</body>
+
+</html>

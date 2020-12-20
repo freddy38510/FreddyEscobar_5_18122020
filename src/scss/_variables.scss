@@ -1,0 +1,35 @@
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+
+$color-contrast-dark: #fff;
+$color-contrast-light: #000;
+
+$purple: #8f5bfe;
+$purple-25: tint-color($purple, 90%);
+$purple-100: tint-color($purple, 80%);
+$purple-200: tint-color($purple, 60%);
+$purple-300: tint-color($purple, 40%);
+$purple-400: tint-color($purple, 20%);
+$purple-500: $purple;
+$purple-600: shade-color($purple, 20%);
+$purple-700: shade-color($purple, 40%);
+$purple-800: shade-color($purple, 60%);
+$purple-900: shade-color($purple, 80%);
+
+$blue: #0d6efd;
+
+$blue-700: shade-color($blue, 40%);
+
+$primary: #261624;
+$secondary: #fe8f5b;
+$light: $purple-25;
+$info: $blue-700;
+
+$body-bg: #fff;
+$body-color: #000;
+
+$link-color: $secondary;
+
+$card-bg: $purple-25;
+$card-border-color: rgba(0, 0, 0, 0.08);
