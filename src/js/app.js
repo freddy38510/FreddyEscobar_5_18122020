@@ -8,7 +8,7 @@ import 'bootstrap/js/src/toast';
 
 // import own modules
 import {
-  isCurrentRoute, stopLoading, getParamId,
+  isCurrentRoute, stopLoading, injectTotalItemsCart, getParamId,
 } from './helpers';
 import ProductController from './controllers/product';
 
@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await Products.injectById(getParamId(), '#product');
   }
+
+
+  injectTotalItemsCart('.total-items-cart');
 
   stopLoading('#data-loading');
 });

@@ -1,5 +1,7 @@
 import { Toast } from 'bootstrap';
 import routes from '../../configuration/routes';
+import Cart from './cart';
+
 const isCurrentRoute = function (route) {
   const { pathname } = window.location;
 
@@ -22,6 +24,15 @@ const formatPrice = (price) => new Intl.NumberFormat('fr-FR', {
   style: 'currency',
   currency: 'EUR',
 }).format(price / 100);
+
+const injectTotalItemsCart = (selector) => {
+  const els = document.querySelectorAll(selector);
+  const total = Cart.totalProductsQuantity();
+
+  for (const el of els) {
+    el.textContent = total;
+  }
+};
 
 const clearSlashes = (path) => path
   .toString()
@@ -49,9 +60,9 @@ const getParamId = () => {
 };
 
 export default {
-  isCurrentRoute, stopLoading, formatPrice, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
 };
 
 export {
-  isCurrentRoute, stopLoading, formatPrice, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
 };
