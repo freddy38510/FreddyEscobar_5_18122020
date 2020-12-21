@@ -40,11 +40,18 @@ const insertToDOM = (htmlStr, el, replace = false) => {
   el.appendChild(fragment);
 };
 
+const getParamId = () => {
+  const { search } = window.location;
+
+  const params = new URLSearchParams(search);
+
+  return params.get('id');
+};
 
 export default {
-  isCurrentRoute, stopLoading, formatPrice, insertToDOM,
+  isCurrentRoute, stopLoading, formatPrice, insertToDOM, getParamId,
 };
 
 export {
-  isCurrentRoute, stopLoading, formatPrice, insertToDOM,
+  isCurrentRoute, stopLoading, formatPrice, insertToDOM, getParamId,
 };

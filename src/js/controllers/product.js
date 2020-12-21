@@ -9,6 +9,7 @@ export default class ProductController {
     this.client = new Client();
     this.category = new ProductCategory(category);
     this.products = [];
+    this.product = null;
   }
 
   async index() {
@@ -21,6 +22,12 @@ export default class ProductController {
     }
 
     return products;
+  }
+
+  async get(id) {
+    const productData = await this.client.read(`/${this.category.name}/${id}`);
+
+    return new Product(this.category, productData);
   }
 
   async injectAll(selector) {
@@ -41,6 +48,35 @@ export default class ProductController {
         document.title += ' - Erreur';
 
         insertToDOM(ProductView.alert('Impossible d\'afficher la liste des meubles demandée.'), el);
+      }
+
+      if (process.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      }
+    }
+  }
+
+  async injectById(id, selector) {
+    const el = document.querySelector(selector);
+
+    try {
+      if (el === null) {
+        throw Error('Could not find element to inject template');
+      }
+
+      this.product = await this.get(id);
+
+      if (this.product !== null) {
+        document.title += ` - ${this.product.name}`;
+
+        insertToDOM(ProductView.card(this.product), el);
+      }
+    } catch (error) {
+      if (el !== null) {
+        document.title += ' - Erreur';
+
+        insertToDOM(ProductView.alert('Impossible d\'afficher le meuble demandé.'), el);
       }
 
       if (process.env.DEV) {

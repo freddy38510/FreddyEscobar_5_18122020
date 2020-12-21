@@ -8,7 +8,7 @@ import 'bootstrap/js/src/toast';
 
 // import own modules
 import {
-  isCurrentRoute, stopLoading,
+  isCurrentRoute, stopLoading, getParamId,
 } from './helpers';
 import ProductController from './controllers/product';
 
@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const Products = new ProductController();
 
     await Products.injectAll('#products');
+  }
+
+  // Page product
+  if (isCurrentRoute('product')) {
+    const Products = new ProductController();
+
+    await Products.injectById(getParamId(), '#product');
   }
 
   stopLoading('#data-loading');
