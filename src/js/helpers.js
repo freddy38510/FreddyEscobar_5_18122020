@@ -20,6 +20,39 @@ const stopLoading = function (selector) {
   }
 };
 
+const Notify = function (msg, selector = 'body', classes = 'text-white bg-success') {
+  const to = document.querySelector(selector);
+
+  if (to === null) {
+    throw Error('Could not find element to inject notification');
+  }
+
+  const template = `<div class="toast-container position-absolute p-3 top-0 end-0">
+    <div class="toast d-flex align-items-center ${classes}" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        ${msg}
+      </div>
+      <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+  </div>`;
+
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+
+  toastElList.forEach(function (toastEl) {
+    toastEl.parentNode.remove(toastEl);
+  });
+
+  insertToDOM(template, to);
+
+  const toastEl = document.querySelector('.toast');
+
+  new Toast(toastEl).show();
+
+  toastEl.addEventListener('hidden.bs.toast', function () {
+    toastEl.parentNode.remove(toastEl);
+  });
+};
+
 const formatPrice = (price) => new Intl.NumberFormat('fr-FR', {
   style: 'currency',
   currency: 'EUR',
@@ -60,9 +93,9 @@ const getParamId = () => {
 };
 
 export default {
-  isCurrentRoute, stopLoading, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
 };
 
 export {
-  isCurrentRoute, stopLoading, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
 };
