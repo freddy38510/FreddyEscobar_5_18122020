@@ -84,6 +84,8 @@ const insertToDOM = (htmlStr, el, replace = false) => {
   el.appendChild(fragment);
 };
 
+const redirect = (url) => window.location.replace(url);
+
 const getParamId = () => {
   const { search } = window.location;
 
@@ -93,9 +95,9 @@ const getParamId = () => {
 };
 
 export default {
-  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, redirect, getParamId,
 };
 
 export {
-  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, redirect, getParamId,
 };

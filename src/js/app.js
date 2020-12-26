@@ -10,6 +10,7 @@ import 'bootstrap/js/src/toast';
 import {
   isCurrentRoute, stopLoading, injectTotalItemsCart, getParamId,
 } from './helpers';
+import CheckoutController from './controllers/checkout';
 import ProductController from './controllers/product';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -27,6 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     await Products.injectById(getParamId(), '#product');
   }
 
+  // Page checkout
+  if (isCurrentRoute('checkout')) {
+    const Checkout = new CheckoutController();
+
+    Checkout.injectCart('#cart');
+  }
 
   injectTotalItemsCart('.total-items-cart');
 
