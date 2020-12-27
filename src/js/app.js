@@ -12,6 +12,7 @@ import {
 } from './helpers';
 import CheckoutController from './controllers/checkout';
 import ProductController from './controllers/product';
+import OrderConfirmedController from './controllers/order-confirmed';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Page products list
@@ -33,6 +34,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const Checkout = new CheckoutController();
 
     Checkout.injectCart('#cart');
+  }
+
+  // page order-confirmed
+  if (isCurrentRoute('orderConfirmed')) {
+    const OrderConfirmed = new OrderConfirmedController();
+
+    OrderConfirmed.injectOrderId('#order-id');
+
+    OrderConfirmed.injectTotalPrice('#total-price');
+
+    OrderConfirmed.clearOrder();
   }
 
   injectTotalItemsCart('.total-items-cart');
