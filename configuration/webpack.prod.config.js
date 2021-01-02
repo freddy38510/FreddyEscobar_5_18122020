@@ -30,8 +30,10 @@ module.exports = merge(webpackConfiguration, {
   },
 
   /* Additional plugins configuration */
-  plugins: [new DefinePlugin({
-    'process.env.PROD': JSON.stringify(true),
-    'process.env.DEV': JSON.stringify(false),
-  })],
+  plugins: [
+    new DefinePlugin({
+      'process.env.PROD': JSON.stringify(true),
+      'process.env.DEV': JSON.stringify(false),
+    }),
+  ],
 });
