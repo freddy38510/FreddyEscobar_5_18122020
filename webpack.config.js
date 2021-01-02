@@ -21,6 +21,7 @@ const htmlPluginEntries = templateFiles.map((template) => new HTMLWebpackPlugin(
   base: true,
   filename: template,
   template: path.resolve(environment.paths.source, 'templates', template),
+  scriptLoading: 'defer',
 }));
 
 module.exports = {
