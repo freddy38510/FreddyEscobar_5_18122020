@@ -4,7 +4,6 @@
 
 const path = require('path');
 const glob = require('glob');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -59,7 +58,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              name: 'images/design/[name].[hash:6].[ext]',
+              name: 'images/[name].[ext]',
               publicPath: '../',
               limit: environment.limits.images,
             },
@@ -110,18 +109,6 @@ module.exports = {
     }),
     new CleanWebpackPlugin({
       verbose: true,
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(environment.paths.source, 'images'),
-          to: path.resolve(environment.paths.output, 'images'),
-          toType: 'dir',
-          globOptions: {
-            ignore: ['*.DS_Store', 'Thumbs.db'],
-          },
-        },
-      ],
     }),
   ].concat(htmlPluginEntries),
   target: 'web',
