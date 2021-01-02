@@ -2,6 +2,7 @@
 import '../scss/app.scss';
 
 // import bootstrap components
+
 import 'bootstrap/js/src/alert';
 import 'bootstrap/js/src/button';
 import 'bootstrap/js/src/toast';
@@ -14,7 +15,7 @@ import CheckoutController from './controllers/checkout';
 import ProductController from './controllers/product';
 import OrderConfirmedController from './controllers/order-confirmed';
 
-document.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('load', async () => {
   // Page products list
   if (isCurrentRoute('home')) {
     const Products = new ProductController();
