@@ -20,7 +20,7 @@ export default class CheckoutView {
       <th class="py-4 text-uppercase fw-normal small align-bottom">
         Total
       </th>
-      <td class="py-4 h5 fw-normal text-end">${formatPrice(Cart.sumProducts())}</td>
+      <td class="py-4 h5 fw-normal text-end">${formatPrice(Cart.sumProductsPrice())}</td>
     </tr>`;
 
     template += '</tbody></table>';

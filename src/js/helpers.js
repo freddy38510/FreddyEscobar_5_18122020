@@ -60,7 +60,7 @@ const formatPrice = (price) => new Intl.NumberFormat('fr-FR', {
 
 const injectTotalItemsCart = (selector) => {
   const els = document.querySelectorAll(selector);
-  const total = Cart.totalProductsQuantity();
+  const total = Cart.sumProductsQuantity();
 
   for (const el of els) {
     el.textContent = total;

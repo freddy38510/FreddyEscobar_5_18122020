@@ -42,7 +42,7 @@ export default class Cart {
     return this.getProducts().findIndex((product) => product._id === id);
   }
 
-  static sumProducts() {
+  static sumProductsPrice() {
     var sum = 0;
     var products = this.getProducts();
 
@@ -52,7 +52,7 @@ export default class Cart {
     return Number(sum);
   }
 
-  static totalProductsQuantity() {
+  static sumProductsQuantity() {
     const products = Cart.getProducts();
 
     let total = 0;

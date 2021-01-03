@@ -5,7 +5,7 @@ import { formatPrice, redirect } from '../helpers';
 export default class OrderConfirmedController {
   constructor() {
     this.orderId = Cart.getOrderId() || null;
-    this.totalPrice = Cart.sumProducts() || 0;
+    this.totalPrice = Cart.sumProductsPrice() || 0;
 
     if (this.orderId === null) {
       redirect('/');
