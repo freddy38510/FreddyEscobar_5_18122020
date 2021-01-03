@@ -49,7 +49,7 @@ export default class Cart {
     for (let i = 0; i < products.length; i += 1) {
       sum += (products[i].price * products[i].quantity);
     }
-    return sum;
+    return Number(sum);
   }
 
   static totalProductsQuantity() {
@@ -61,7 +61,7 @@ export default class Cart {
       total += product.quantity;
     }
 
-    return total;
+    return Number(total);
   }
 
   static setOrderId(id) {
