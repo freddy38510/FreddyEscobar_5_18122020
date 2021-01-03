@@ -4,7 +4,7 @@ import Client from '../client';
 import CheckoutView from '../views/checkout';
 import ProductCategory from '../product-category';
 import {
-  insertToDOM, Notify, redirect, injectTotalItemsCart,
+  insertToDOM, Notify, redirect, injectSumProductsQuantity,
 } from '../helpers';
 import routes from '../../../configuration/routes';
 
@@ -75,7 +75,7 @@ export default class CheckoutController {
 
     this.products = [];
 
-    injectTotalItemsCart('.total-items-cart');
+    injectSumProductsQuantity('.total-items-cart');
 
     this.injectCart(this.cartSelector, true);
 

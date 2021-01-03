@@ -9,7 +9,7 @@ import 'bootstrap/js/src/toast';
 
 // import own modules
 import {
-  isCurrentRoute, stopLoading, injectTotalItemsCart, getParamId,
+  isCurrentRoute, stopLoading, injectSumProductsQuantity, getParamId,
 } from './helpers';
 import CheckoutController from './controllers/checkout';
 import ProductController from './controllers/product';
@@ -48,7 +48,7 @@ window.addEventListener('load', async () => {
     OrderConfirmed.clearOrder();
   }
 
-  injectTotalItemsCart('.total-items-cart');
+  injectSumProductsQuantity('.total-items-cart');
 
   stopLoading('#data-loading');
 });

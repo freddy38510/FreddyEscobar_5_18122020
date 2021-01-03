@@ -58,7 +58,7 @@ const formatPrice = (price) => new Intl.NumberFormat('fr-FR', {
   currency: 'EUR',
 }).format(price / 100);
 
-const injectTotalItemsCart = (selector) => {
+const injectSumProductsQuantity = (selector) => {
   const els = document.querySelectorAll(selector);
   const total = Cart.sumProductsQuantity();
 
@@ -95,9 +95,9 @@ const getParamId = () => {
 };
 
 export default {
-  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, redirect, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectSumProductsQuantity, insertToDOM, redirect, getParamId,
 };
 
 export {
-  isCurrentRoute, stopLoading, Notify, formatPrice, injectTotalItemsCart, insertToDOM, redirect, getParamId,
+  isCurrentRoute, stopLoading, Notify, formatPrice, injectSumProductsQuantity, insertToDOM, redirect, getParamId,
 };

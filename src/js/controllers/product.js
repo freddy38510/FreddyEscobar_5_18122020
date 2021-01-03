@@ -3,7 +3,7 @@ import Product from '../product';
 import ProductCategory from '../product-category';
 import ProductView from '../views/product';
 import Cart from '../cart';
-import { insertToDOM, injectTotalItemsCart, Notify } from '../helpers';
+import { insertToDOM, injectSumProductsQuantity, Notify } from '../helpers';
 
 export default class ProductController {
   constructor(formId = 'product-form', category = process.env.PRODUCT_CATEGORY) {
@@ -105,7 +105,7 @@ export default class ProductController {
 
       Cart.addProduct(product);
 
-      injectTotalItemsCart('.total-items-cart');
+      injectSumProductsQuantity('.total-items-cart');
 
       Notify('Produit ajouté au panier avec succès!', `#${this.formId}`);
     } catch (error) {
