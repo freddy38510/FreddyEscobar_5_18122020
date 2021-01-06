@@ -3,7 +3,7 @@
 Veuillez trouver ci-dessous la liste des fonctions qui semblent
 les plus pertinentes à tester.
 
-## [DOMUtils.js](/../src/helpers/DOMUtils.js)
+## [DOMUtils.js](/../src/js/helpers/DOMUtils.js)
 
 ### [`strToFragment(htmlStr)`](/../src/js/helpers/DOMUtils.js#L2)
 
@@ -95,9 +95,9 @@ console.log(elements[1].outerHTML);
 <span class="total-products">7</span>
 ```
 
-## [`notify.js`](../src/helpers/notify.js)
+## [`notify.js`](../src/js/helpers/notify.js)
 
-### [`notify(msg, ?selector, ?classes)`](../src/helpers/notify.js#L4-L22)
+### [`notify(msg, ?selector, ?classes)`](../src/js/helpers/notify.js#L4-L22)
 
 Ajoute et affiche le composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts/)
@@ -211,9 +211,9 @@ console.log(stripTrailingSlash('deuxième chaîne de test//'));
 deuxième chaîne de test/
 ```
 
-## [`template.js`](../src/helpers/template.js)
+## [`template.js`](../src/js/helpers/template.js)
 
-### [`appendTo(el, ?replace)`](../src/helpers/template.js#L13-L21)
+### [`appendTo(el, ?replace)`](../src/js/helpers/template.js#L13-L21)
 
 Méthode de la classe `Template` qui ajoute le `FragmentDocument`,
 issu de l'objet hérité de la classe, à la fin de la
@@ -244,7 +244,7 @@ console.log(document.getElementById('conteneur').outerHTML);
 </div>
 ```
 
-### [`renderAlert(msg)`](../src/helpers/template.js#L23-L27)
+### [`renderAlert(msg)`](../src/js/helpers/template.js#L23-L27)
 
 Méthode statique de la classe Template qui injecte le contenu HTML du composant
 [Alert de Bootstrap](https://getbootstrap.com/docs/5.0/components/alerts)
@@ -268,7 +268,7 @@ console.log(document.querySelector('.alert').outerHTML);
 </div>
 ```
 
-### [`renderToast(msg, ?classes)`](../src/helpers/template.js#L29-L39)
+### [`renderToast(msg, ?classes)`](../src/js/helpers/template.js#L29-L39)
 
 Méthode statique de la classe Template qui injecte le contenu HTML du composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts)
