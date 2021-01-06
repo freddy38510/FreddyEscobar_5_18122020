@@ -92,10 +92,6 @@ export default class ProductView {
   }
 }
 
-/**
- *
- * @param {string[]} values
- */
 function customizationOptions(values) {
   let template = '';
 
