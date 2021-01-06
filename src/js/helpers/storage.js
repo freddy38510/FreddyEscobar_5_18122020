@@ -1,23 +1,25 @@
 export default class Storage {
   static get(key) {
     const value = localStorage.getItem(key);
-    return value === null ? null : JSON.parse(value);
+
+    if (value === null) {
+      return null;
+    }
+
+    return JSON.parse(value);
   }
 
   static set(key, value) {
     return localStorage.setItem(key, JSON.stringify(value));
   }
 
-  static unset(key) {
-    if (this.isset(key)) return localStorage.removeItem(key);
-    return null;
+  static remove(key) {
+    if (this.has(key)) {
+      localStorage.removeItem(key);
+    }
   }
 
-  static clear() {
-    return localStorage.clear();
-  }
-
-  static isset(key) {
+  static has(key) {
     return this.get(key) !== null;
   }
 }

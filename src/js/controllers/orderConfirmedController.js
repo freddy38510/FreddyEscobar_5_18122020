@@ -1,17 +1,19 @@
-/* eslint-disable no-underscore-dangle */
-import Cart from '../cart';
-import { formatPrice, redirect } from '../helpers';
+import Cart from '../models/cart';
+import { formatPrice } from '../helpers/utils';
+import { redirect } from '../helpers/pageUtils';
 
 export default class OrderConfirmedController {
   constructor() {
-    this.orderId = Cart.getOrderId() || null;
-    this.totalPrice = Cart.sumProductsPrice() || 0;
+    const orderId = Cart.getOrderId() || null;
 
-    if (this.orderId === null) {
+    if (orderId === null) {
       redirect('/');
 
       return;
     }
+
+    this.orderId = orderId;
+    this.totalPrice = Cart.sumProductsPrice() || Number(0);
 
     document.documentElement.style.display = 'initial';
   }
@@ -22,6 +24,8 @@ export default class OrderConfirmedController {
     if (el) {
       el.textContent = formatPrice(this.totalPrice);
     }
+
+    return this;
   }
 
   injectOrderId(selector) {
@@ -30,6 +34,8 @@ export default class OrderConfirmedController {
     if (el) {
       el.textContent = this.orderId;
     }
+
+    return this;
   }
 
   clearOrder() {
@@ -39,6 +45,6 @@ export default class OrderConfirmedController {
 
     this.orderId = null;
 
-    this.totalPrice = 0;
+    this.totalPrice = Number(0);
   }
 }

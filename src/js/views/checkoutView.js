@@ -1,12 +1,13 @@
-import Cart from '../cart';
-import { formatPrice } from '../helpers';
+import Cart from '../models/cart';
+import { formatPrice } from '../helpers/utils';
+import Template from '../helpers/template';
 
 export default class CheckoutView {
-  static listCart(products) {
-    let template = '<table class="table"><tbody>';
+  static renderCart(products) {
+    let htmlStr = '<table class="table"><tbody>';
 
     for (const product of products) {
-      template += `<tr class="small">
+      htmlStr += `<tr class="small">
         <th class="py-4 fw-normal text-muted">
           ${product.name} <span>x ${product.quantity}</span>
         </th>
@@ -16,21 +17,21 @@ export default class CheckoutView {
       </tr>`;
     }
 
-    template += `<tr>
+    htmlStr += `<tr>
       <th class="py-4 text-uppercase fw-normal small align-bottom">
         Total
       </th>
       <td class="py-4 h5 fw-normal text-end">${formatPrice(Cart.sumProductsPrice())}</td>
     </tr>`;
 
-    template += '</tbody></table>';
+    htmlStr += '</tbody></table>';
 
     if (products.length > 0) {
-      template += `<div class="text-end">
+      htmlStr += `<div class="text-end">
         <button class="btn btn-secondary">Vider</button>
       </div>`;
     }
 
-    return template;
+    return new Template(htmlStr);
   }
 }

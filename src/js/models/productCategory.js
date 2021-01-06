@@ -1,6 +1,4 @@
-/* eslint-disable no-underscore-dangle */
-
-const customization = {
+const ProductsCustomizations = {
   furniture: {
     label: 'vernis',
     name: 'varnish',
@@ -22,7 +20,6 @@ export default class ProductCategory {
     }
 
     this.name = category;
-
-    this.customization = customization[`${category}`];
+    this.customization = ProductsCustomizations[`${category}`];
   }
 }

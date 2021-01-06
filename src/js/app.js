@@ -2,53 +2,43 @@
 import '../scss/app.scss';
 
 // import bootstrap components
-
 import 'bootstrap/js/src/alert';
 import 'bootstrap/js/src/button';
 import 'bootstrap/js/src/toast';
 
 // import own modules
-import {
-  isCurrentRoute, stopLoading, injectSumProductsQuantity, getParamId,
-} from './helpers';
-import CheckoutController from './controllers/checkout';
-import ProductController from './controllers/product';
-import OrderConfirmedController from './controllers/order-confirmed';
+import { isCurrentPage, getParam } from './helpers/pageUtils';
+import { removeEl, injectSumProductsQuantity } from './helpers/DOMUtils';
+import CheckoutController from './controllers/checkoutController';
+import ProductController from './controllers/productController';
+import OrderConfirmedController from './controllers/orderConfirmedController';
+import Pages from '../../configuration/pages';
 
 window.addEventListener('load', async () => {
   // Page products list
-  if (isCurrentRoute('home')) {
-    const Products = new ProductController();
-
-    await Products.injectAll('#products');
+  if (isCurrentPage(Pages.home)) {
+    await new ProductController().injectAll('#products');
   }
 
   // Page product
-  if (isCurrentRoute('product')) {
-    const Products = new ProductController();
-
-    await Products.injectById(getParamId(), '#product');
+  if (isCurrentPage(Pages.product)) {
+    await new ProductController().injectById(getParam('id'), '#product');
   }
 
   // Page checkout
-  if (isCurrentRoute('checkout')) {
-    const Checkout = new CheckoutController();
-
-    Checkout.injectCart('#cart');
+  if (isCurrentPage(Pages.checkout)) {
+    new CheckoutController().injectCart('#cart');
   }
 
   // page order-confirmed
-  if (isCurrentRoute('orderConfirmed')) {
-    const OrderConfirmed = new OrderConfirmedController();
-
-    OrderConfirmed.injectOrderId('#order-id');
-
-    OrderConfirmed.injectTotalPrice('#total-price');
-
-    OrderConfirmed.clearOrder();
+  if (isCurrentPage(Pages.orderConfirmed)) {
+    new OrderConfirmedController()
+      .injectOrderId('#order-id')
+      .injectTotalPrice('#total-price')
+      .clearOrder();
   }
 
   injectSumProductsQuantity('.total-items-cart');
 
-  stopLoading('#data-loading');
+  removeEl('#data-loading');
 });

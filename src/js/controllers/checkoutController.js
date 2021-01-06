@@ -1,19 +1,18 @@
-/* eslint-disable no-underscore-dangle */
-import Cart from '../cart';
-import Client from '../client';
-import CheckoutView from '../views/checkout';
-import ProductCategory from '../product-category';
-import {
-  insertToDOM, Notify, redirect, injectSumProductsQuantity,
-} from '../helpers';
-import routes from '../../../configuration/routes';
+import Cart from '../models/cart';
+import Client from '../api/client';
+import ProductCategory from '../models/productCategory';
+import { injectSumProductsQuantity } from '../helpers/DOMUtils';
+import { redirect } from '../helpers/pageUtils';
+import notify from '../helpers/notify';
+import Pages from '../../../configuration/pages';
+import CheckoutView from '../views/checkoutView';
 
 export default class CheckoutController {
-  constructor(formId = 'order-form', category = process.env.PRODUCT_CATEGORY) {
-    this.client = new Client();
-    this.category = new ProductCategory(category);
-    this.products = Cart.getProducts();
+  constructor(formId = 'order-form', productCategory = process.env.PRODUCT_CATEGORY) {
     this.formId = formId;
+    this.productCategory = new ProductCategory(productCategory);
+    this.client = new Client();
+    this.products = Cart.getProducts();
     this.orderButton = document.querySelector(`#${this.formId} button`);
 
     if (this.products.length > 0) {
@@ -24,10 +23,17 @@ export default class CheckoutController {
     document.body.addEventListener('click', this);
   }
 
-  async order({ contact, products }) {
-    const { orderId } = await this.client.create(`/${this.category.name}/order`, JSON.stringify({ contact, products }));
+  async order({
+    firstName, lastName, address, city, email,
+  }, productsIds) {
+    const data = {
+      contact: {
+        firstName, lastName, address, city, email,
+      },
+      products: productsIds,
+    };
 
-    Cart.setOrderId(orderId);
+    return this.client.create(`/${this.productCategory.name}/order`, data);
   }
 
   injectCart(selector, replace = false) {
@@ -36,8 +42,10 @@ export default class CheckoutController {
     if (el) {
       this.cartSelector = selector;
 
-      insertToDOM(CheckoutView.listCart(this.products), el, replace);
+      CheckoutView.renderCart(this.products).appendTo(el, replace);
     }
+
+    return this;
   }
 
   async onOrder(event) {
@@ -51,13 +59,15 @@ export default class CheckoutController {
     try {
       const contact = Object.fromEntries(new FormData(event.target));
 
-      const products = this.products.map((product) => product._id);
+      const products = this.products.map((product) => product.id);
 
-      await this.order({ contact, products });
+      const { orderId } = await this.order(contact, products);
 
-      redirect(routes.orderConfirmed);
+      Cart.setOrderId(orderId);
+
+      redirect(Pages.orderConfirmed);
     } catch (error) {
-      Notify('Impossible de passer la commande!', `#${this.formId}`, 'bg-danger text-white');
+      notify('Impossible de passer la commande!', `#${this.formId}`, 'bg-danger text-white');
 
       if (process.env.DEV) {
         // eslint-disable-next-line no-console

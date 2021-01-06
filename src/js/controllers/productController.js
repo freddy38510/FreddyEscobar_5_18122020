@@ -1,17 +1,19 @@
-import Client from '../client';
-import Product from '../product';
-import ProductCategory from '../product-category';
-import ProductView from '../views/product';
-import Cart from '../cart';
-import { insertToDOM, injectSumProductsQuantity, Notify } from '../helpers';
+import Client from '../api/client';
+import Product from '../models/product';
+import ProductCategory from '../models/productCategory';
+import Cart from '../models/cart';
+import { injectSumProductsQuantity } from '../helpers/DOMUtils';
+import notify from '../helpers/notify';
+import ProductView from '../views/productView';
+import Template from '../helpers/template';
 
 export default class ProductController {
-  constructor(formId = 'product-form', category = process.env.PRODUCT_CATEGORY) {
+  constructor(formId = 'product-form', productCategory = process.env.PRODUCT_CATEGORY) {
+    this.formId = formId;
+    this.productCategory = new ProductCategory(productCategory);
     this.client = new Client();
-    this.category = new ProductCategory(category);
     this.products = [];
     this.product = null;
-    this.formId = formId;
 
     document.body.addEventListener('submit', this);
   }
@@ -19,19 +21,19 @@ export default class ProductController {
   async index() {
     const products = [];
 
-    const productsData = await this.client.read(`/${this.category.name}/`);
+    const productsData = await this.client.read(`/${this.productCategory.name}/`);
 
     for (const productData of productsData) {
-      products.push(new Product(this.category, productData));
+      products.push(new Product(this.productCategory, productData));
     }
 
     return products;
   }
 
   async get(id) {
-    const productData = await this.client.read(`/${this.category.name}/${id}`);
+    const productData = await this.client.read(`/${this.productCategory.name}/${id}`);
 
-    return new Product(this.category, productData);
+    return new Product(this.productCategory, productData);
   }
 
   async injectAll(selector) {
@@ -45,13 +47,11 @@ export default class ProductController {
       this.products = await this.index();
 
       if (this.products.length > 0) {
-        insertToDOM(ProductView.list('cardGrid', this.products), el);
+        ProductView.renderProducts(this.products).appendTo(el, true);
       }
     } catch (error) {
       if (el !== null) {
-        document.title += ' - Erreur';
-
-        insertToDOM(ProductView.alert('Impossible d\'afficher la liste des meubles demandée.'), el);
+        Template.renderAlert('Impossible d\'afficher la liste des produits.').appendTo(el);
       }
 
       if (process.env.DEV) {
@@ -59,6 +59,8 @@ export default class ProductController {
         console.error(error);
       }
     }
+
+    return this;
   }
 
   async injectById(id, selector) {
@@ -74,13 +76,11 @@ export default class ProductController {
       if (this.product !== null) {
         document.title += ` - ${this.product.name}`;
 
-        insertToDOM(ProductView.card(this.product), el);
+        ProductView.renderProduct(this.product).appendTo(el);
       }
     } catch (error) {
       if (el !== null) {
-        document.title += ' - Erreur';
-
-        insertToDOM(ProductView.alert('Impossible d\'afficher le meuble demandé.'), el);
+        Template.renderAlert('Impossible d\'afficher le produit demandé.').appendTo(el);
       }
 
       if (process.env.DEV) {
@@ -88,10 +88,12 @@ export default class ProductController {
         console.error(error);
       }
     }
+
+    return this;
   }
 
   onAddToCart(event) {
-    if (event.target.id !== this.formId) {
+    if (event.target.getAttribute('id') !== this.formId) {
       // submit event from an other form, resolve promise
       return;
     }
@@ -107,9 +109,9 @@ export default class ProductController {
 
       injectSumProductsQuantity('.total-items-cart');
 
-      Notify('Produit ajouté au panier avec succès!', `#${this.formId}`);
+      notify('Produit ajouté au panier avec succès!', `#${this.formId}`);
     } catch (error) {
-      Notify('Impossible d\'ajouter le produit au panier!', `#${this.formId}`, 'bg-danger text-white');
+      notify('Impossible d\'ajouter le produit au panier!', `#${this.formId}`, 'bg-danger text-white');
 
       if (process.env.DEV) {
         // eslint-disable-next-line no-console

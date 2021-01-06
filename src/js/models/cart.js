@@ -1,9 +1,14 @@
-/* eslint-disable no-underscore-dangle */
-import Storage from './storage';
+import Storage from '../helpers/storage';
 
 export default class Cart {
-  static addProduct(product) {
-    const productIndex = this.findProductIndex(product._id);
+  static addProduct({
+    id, name, price, quantity,
+  } = {}) {
+    const product = {
+      id, name, price, quantity,
+    };
+
+    const productIndex = this.findProductIndex(id);
 
     let products = this.getProducts();
 
@@ -13,38 +18,24 @@ export default class Cart {
       products[productIndex].quantity += 1;
     }
 
-    this.setProducts(products);
-  }
-
-  static removeProduct(id) {
-    const products = this.getProducts().filter((product) => product._id !== id);
-
-    this.setProducts(products);
+    Storage.set('products', products);
   }
 
   static clearProducts() {
-    Storage.unset('products');
+    Storage.remove('products');
   }
 
   static getProducts() {
     return Storage.get('products') || [];
   }
 
-  static setProducts(data) {
-    Storage.set('products', data);
-  }
-
-  static findProduct(id) {
-    return this.getProducts().find((product) => product._id === id);
-  }
-
   static findProductIndex(id) {
-    return this.getProducts().findIndex((product) => product._id === id);
+    return this.getProducts().findIndex((product) => product.id === id);
   }
 
   static sumProductsPrice() {
-    var sum = 0;
-    var products = this.getProducts();
+    const products = this.getProducts();
+    let sum = 0;
 
     for (let i = 0; i < products.length; i += 1) {
       sum += (products[i].price * products[i].quantity);
@@ -73,6 +64,6 @@ export default class Cart {
   }
 
   static clearOrderId() {
-    Storage.unset('orderId');
+    Storage.remove('orderId');
   }
 }
