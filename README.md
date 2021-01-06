@@ -10,10 +10,12 @@ lors de la soutenance du projet n°5.
 
 ## Utilisation
 
-- Clonez le dépôt du backend, puis lancez le serveur
+- Clonez le dépôt du backend, installez les dépendances, puis lancez le serveur
 
 ```bash
 git clone https://github.com/OpenClassrooms-Student-Center/JWDP5.git && cd JWDP5
+
+yarn
 
 node server
 ```
@@ -28,6 +30,9 @@ yarn
 
 yarn dev
 ```
+
+La dernière commande ouvre automatiquement votre navigateur par défaut
+à l'adresse [http://localhost:8000](http://localhost:8000).
 
 > Note: Vous pouvez remplacer `yarn` par `npm`.
 
