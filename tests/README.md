@@ -3,9 +3,9 @@
 Veuillez trouver ci-dessous la liste des fonctions qui semblent
 les plus pertinentes à tester.
 
-## [DOMUtils.js](/../src/js/helpers/DOMUtils.js)
+## [DOMUtils.js](/src/js/helpers/DOMUtils.js)
 
-### [`strToFragment(htmlStr)`](/../src/js/helpers/DOMUtils.js#L2)
+### [`strToFragment(htmlStr)`](/src/js/helpers/DOMUtils.js#L2)
 
 Convertit `htmlStr` en [`DocumentFragment`](https://developer.mozilla.org/fr/docs/Web/API/DocumentFragment).
 
@@ -37,7 +37,7 @@ console.log(fragment.querySelector('div').outerHTML);
 
 Peut ne pas renvoyer la valeur attendue, si `htmlStr` n'est pas du code HTML5 valide.
 
-### [`removeEl(selector)`](/../src/js/helpers/DOMUtils.js#L5-L11)
+### [`removeEl(selector)`](/src/js/helpers/DOMUtils.js#L5-L11)
 
 Supprime l'élément du DOM spécifié par `selector`.
 
@@ -61,7 +61,7 @@ console.log(document.getElementById('a-supprimer'));
 null
 ```
 
-### [`injectSumProductsQuantity(selectors)`](/../src/js/helpers/DOMUtils.js#L13-L21)
+### [`injectSumProductsQuantity(selectors)`](/src/js/helpers/DOMUtils.js#L13-L21)
 
 Injecte la somme de la quantité des produits, présents dans le panier,
 dans le contenu des éléments spécifiés par `selectors`.
@@ -95,9 +95,9 @@ console.log(elements[1].outerHTML);
 <span class="total-products">7</span>
 ```
 
-## [`notify.js`](../src/js/helpers/notify.js)
+## [`notify.js`](/src/js/helpers/notify.js)
 
-### [`notify(msg, ?selector, ?classes)`](../src/js/helpers/notify.js#L4-L22)
+### [`notify(msg, ?selector, ?classes)`](/src/js/helpers/notify.js#L4-L22)
 
 Ajoute et affiche le composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts/)
@@ -154,9 +154,9 @@ setTimeout(function(){
 null
 ```
 
-## [pageUtils.js](/../src/js/helpers/pageUtils.js)
+## [pageUtils.js](/src/js/helpers/pageUtils.js)
 
-### [`isCurrentPage(path)`](/../src/js/helpers/pageUtils.js#L1-L3)
+### [`isCurrentPage(path)`](/src/js/helpers/pageUtils.js#L1-L3)
 
 Renvoie `true` si `path` est égale au chemin de l’url de la page courante,
 `false` si ce n’est pas le cas.
@@ -190,7 +190,7 @@ false
 true
 ```
 
-### [`stripTrailingSlash(str)`](/../src/js/helpers/pageUtils.js#L17-L23)
+### [`stripTrailingSlash(str)`](/src/js/helpers/pageUtils.js#L17-L23)
 
 Retire la barre oblique finale d'une chaîne de caractère `str` dont la longueur
 est supérieure à 1.
@@ -211,9 +211,9 @@ console.log(stripTrailingSlash('deuxième chaîne de test//'));
 deuxième chaîne de test/
 ```
 
-## [`template.js`](../src/js/helpers/template.js)
+## [`template.js`](/src/js/helpers/template.js)
 
-### [`appendTo(el, ?replace)`](../src/js/helpers/template.js#L13-L21)
+### [`appendTo(el, ?replace)`](/src/js/helpers/template.js#L13-L21)
 
 Méthode de la classe `Template` qui ajoute le `FragmentDocument`,
 issu de l'objet hérité de la classe, à la fin de la
@@ -244,7 +244,7 @@ console.log(document.getElementById('conteneur').outerHTML);
 </div>
 ```
 
-### [`renderAlert(msg)`](../src/js/helpers/template.js#L23-L27)
+### [`renderAlert(msg)`](/src/js/helpers/template.js#L23-L27)
 
 Méthode statique de la classe Template qui injecte le contenu HTML du composant
 [Alert de Bootstrap](https://getbootstrap.com/docs/5.0/components/alerts)
@@ -268,7 +268,7 @@ console.log(document.querySelector('.alert').outerHTML);
 </div>
 ```
 
-### [`renderToast(msg, ?classes)`](../src/js/helpers/template.js#L29-L39)
+### [`renderToast(msg, ?classes)`](/src/js/helpers/template.js#L29-L39)
 
 Méthode statique de la classe Template qui injecte le contenu HTML du composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts)
@@ -299,9 +299,9 @@ console.log(document.querySelector('.toast-container').outerHTML);
 </div>
 ```
 
-## [`utils.js`](../src/js/helpers/utils.js)
+## [`utils.js`](/src/js/helpers/utils.js)
 
-### [`formatPrice(price)`](../src/js/helpers/utils.js#L1-L6)
+### [`formatPrice(price)`](/src/js/helpers/utils.js#L1-L6)
 
 Retourne `price` divisé par 100 et formaté en devise (euros).
 
@@ -319,9 +319,9 @@ formatPrice(451265)
 4 512,65 €
 ```
 
-## [`checkoutController.js`](../src/js/controllers/checkoutController.js)
+## [`checkoutController.js`](/src/js/controllers/checkoutController.js)
 
-### [`order({ firstName, lastName, address, city, email }, productsIds)`](../src/js/controllers/checkoutController.js#L26-L37)
+### [`order({ firstName, lastName, address, city, email }, productsIds)`](/src/js/controllers/checkoutController.js#L26-L37)
 
 Méthode asynchrone de la classe `CheckoutController` qui envoie une requête
 à l'API pour passer une commande.
@@ -364,7 +364,7 @@ new CheckoutController().order({contact, fakeProducts});
 Error: (400) Bad Request
 ```
 
-### [`injectCart(selector, ?replace)`](../src/js/controllers/checkoutController.js#L39-L49)
+### [`injectCart(selector, ?replace)`](/src/js/controllers/checkoutController.js#L39-L49)
 
 Méthode de la classe `CheckoutController` qui injecte des éléments
 représentant le contenu du panier à l'endroit spécifié par `selector`.
@@ -426,9 +426,9 @@ console.log(document.getElementById('panier').outerHTML);
 </div>
 ```
 
-## [`orderConfirmedController.js`](../src/js/controllers/orderedConfirmedController.js)
+## [`orderConfirmedController.js`](/src/js/controllers/orderedConfirmedController.js)
 
-### [`injectTotalPrice(selector)`](../src/js/controllers/orderedConfirmedController.js#L21-L29)
+### [`injectTotalPrice(selector)`](/src/js/controllers/orderedConfirmedController.js#L21-L29)
 
 Méthode de la classe `OrderConfirmedController` qui injecte le prix total,
 formaté en devise (Euros), des produits présents dans le panier,
@@ -466,9 +466,9 @@ console.log(document.querySelector('#conteneur').outerHTML);
 <div id="conteneur">1 150,00 €</div>
 ```
 
-## [`productController.js`](../src/js/controllers/productController.js)
+## [`productController.js`](/src/js/controllers/productController.js)
 
-### [`injectById(id, selector)`](../src/js/controllers/productController.js#L66-L93)
+### [`injectById(id, selector)`](/src/js/controllers/productController.js#L66-L93)
 
 Méthode asynchrone de la classe `ProductController` qui injecte le code HTML correspondant
 au produit dont l'id est `id`, provenant de l'API, à l'élément spécifié via `selector`.
