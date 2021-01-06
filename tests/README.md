@@ -5,7 +5,7 @@ les plus pertinentes à tester.
 
 ## [DOMUtils.js](/src/js/helpers/DOMUtils.js)
 
-### [`strToFragment(htmlStr)`](/src/js/helpers/DOMUtils.js#L2)
+### [`strToFragment(htmlStr)`](/src/js/helpers/DOMUtils.js#L3)
 
 Convertit `htmlStr` en [`DocumentFragment`](https://developer.mozilla.org/fr/docs/Web/API/DocumentFragment).
 
@@ -426,9 +426,9 @@ console.log(document.getElementById('panier').outerHTML);
 </div>
 ```
 
-## [`orderConfirmedController.js`](/src/js/controllers/orderedConfirmedController.js)
+## [`orderConfirmedController.js`](/src/js/controllers/orderConfirmedController.js)
 
-### [`injectTotalPrice(selector)`](/src/js/controllers/orderedConfirmedController.js#L21-L29)
+### [`injectTotalPrice(selector)`](/src/js/controllers/orderConfirmedController.js#L21-L29)
 
 Méthode de la classe `OrderConfirmedController` qui injecte le prix total,
 formaté en devise (Euros), des produits présents dans le panier,
