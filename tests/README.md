@@ -550,3 +550,31 @@ rejected.then(() => console.log(document.querySelector('#conteneur').outerHTML))
   </div>
 </div>
 ```
+
+## [`productView.js`](/src/js/views/productView.js)
+
+### [`customizationOptions(values)`](/src/js/views/productView.js#L95-L103)
+
+Retourne une chaîne de caractère correspondant à une liste de balises HTML `option`
+avec la valeur de chaque élément du tableau `values`.
+
+> Note: la première option possède l'attribut `selected`.
+
+#### Test
+
+```javascript
+// création du paramètre
+const values = ['option 1', 'option 2', 'option 3'];
+
+// appel de la fonction
+const strHtml = customizationOptions(values);
+
+// affichage du résultat
+console.log(strHtml);
+```
+
+#### Résultat attendu
+
+```javascript
+'<option selected value="option 1">option 1</option><option value="option 2">option 2</option><option value="option 3">option 3</option>'
+```
