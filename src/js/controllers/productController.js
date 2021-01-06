@@ -59,8 +59,6 @@ export default class ProductController {
         console.error(error);
       }
     }
-
-    return this;
   }
 
   async injectById(id, selector) {
@@ -88,8 +86,6 @@ export default class ProductController {
         console.error(error);
       }
     }
-
-    return this;
   }
 
   onAddToCart(event) {

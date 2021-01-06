@@ -219,6 +219,9 @@ Méthode de la classe `Template` qui ajoute le `FragmentDocument`,
 issu de l'objet hérité de la classe, à la fin de la
 liste des enfants du noeud `el`, ou les remplace si `replace` vaut `true`.
 
+Retourne l'objet hérité de la classe
+afin de pouvoir appeler d'autres méthodes en chaîne.
+
 #### Test
 
 ```javascript
@@ -324,7 +327,10 @@ formatPrice(451265)
 ### [`order({ firstName, lastName, address, city, email }, productsIds)`](/src/js/controllers/checkoutController.js#L26-L37)
 
 Méthode asynchrone de la classe `CheckoutController` qui envoie une requête
-à l'API pour passer une commande.
+à l'API pour passer une commande. Retourne le corps de la réponse de
+l'API sous forme d'objet.
+
+> Note: Peut retourner une erreur provenant de la requête vers l'API ou de sa réponse.
 
 #### Test
 
@@ -369,8 +375,11 @@ Error: (400) Bad Request
 Méthode de la classe `CheckoutController` qui injecte des éléments
 représentant le contenu du panier à l'endroit spécifié par `selector`.
 
-> Note: Si `replace` vaut `true`, alors les éléments enfants déjà présents,
+Si `replace` vaut `true`, alors les éléments enfants déjà présents,
 sont remplacés.
+
+> Note: Retourne l'objet hérité de la classe
+afin de pouvoir appeler d'autres méthodes en chaîne.
 
 #### Test
 
@@ -434,8 +443,8 @@ Méthode de la classe `OrderConfirmedController` qui injecte le prix total,
 formaté en devise (Euros), des produits présents dans le panier,
 au contenu de l'élément spécifié via `selector`.
 
-> Note: Retourne l'objet hérité de la classe `OrderConfirmedController`
-avec lequel la méthode a été appelé.
+> Note: Retourne l'objet hérité de la classe
+afin de pouvoir appeler d'autres méthodes en chaîne.
 
 #### Test
 

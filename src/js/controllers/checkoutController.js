@@ -44,8 +44,6 @@ export default class CheckoutController {
 
       CheckoutView.renderCart(this.products).appendTo(el, replace);
     }
-
-    return this;
   }
 
   async onOrder(event) {
