@@ -51,7 +51,7 @@ export default class ProductController {
       }
     } catch (error) {
       if (el !== null) {
-        Template.renderAlert('Impossible d\'afficher la liste des produits.').appendTo(el);
+        Template.renderAlert('Impossible d\'afficher la liste des produits.').appendTo(el, true);
       }
 
       if (process.env.DEV) {
@@ -74,11 +74,11 @@ export default class ProductController {
       if (this.product !== null) {
         document.title += ` - ${this.product.name}`;
 
-        ProductView.renderProduct(this.product).appendTo(el);
+        ProductView.renderProduct(this.product).appendTo(el, true);
       }
     } catch (error) {
       if (el !== null) {
-        Template.renderAlert('Impossible d\'afficher le produit demandé.').appendTo(el);
+        Template.renderAlert('Impossible d\'afficher le produit demandé.').appendTo(el, true);
       }
 
       if (process.env.DEV) {
