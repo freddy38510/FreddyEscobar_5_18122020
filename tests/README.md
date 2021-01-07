@@ -30,7 +30,7 @@ console.log(fragment.querySelector('div').outerHTML);
 #### Résultat attendu
 
 ```xml
-  <div>Hello <strong>Jacques</strong>!</div>
+<div>Hello <strong>Jacques</strong>!</div>
 ```
 
 #### Problème possible
@@ -41,11 +41,15 @@ Peut ne pas renvoyer la valeur attendue, si `htmlStr` n'est pas du code HTML5 va
 
 Supprime l'élément du DOM spécifié par `selector`.
 
+> Note: Ne fait rien si l'élément spécifié par `selector`
+n'est pas trouvé dans le document.
+
 #### Test
 
 ```javascript
 // création de l'élément
-const el = document.createElement('div').id('a-supprimer');
+const el = document.createElement('div');
+el.id = 'a-supprimer';
 document.body.appendChild(el);
 
 // appel de la fonction
@@ -66,6 +70,9 @@ null
 Injecte la somme de la quantité des produits, présents dans le panier,
 dans le contenu des éléments spécifiés par `selectors`.
 
+> Note: Ne fait rien si aucun des éléments spécifiés par `selectors`
+n'est trouvé dans le document.
+
 #### Test
 
 ```javascript
@@ -74,8 +81,10 @@ const products = [{ quantity: 1 }, { quantity: 4 }, { quantity: 2 }];
 localStorage.setItem('products', JSON.stringify(products));
 
 // création des éléments
-const div = document.createElement('div').classList.add('total-products');
-const span = document.createElement('span').classList.add('total-products');
+const div = document.createElement('div');
+const span = document.createElement('span');
+div.classList.add('total-products');
+span.classList.add('total-products');
 document.body.appendChild(div);
 document.body.appendChild(span);
 
@@ -101,9 +110,11 @@ console.log(elements[1].outerHTML);
 
 Ajoute et affiche le composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts/)
-avec les `classes` css et
-contenant `msg` dans son corps,
+avec les `classes` css et `msg` en tant que contenu du corps,
 dans l'élément issu de `selector`.
+
+Emet une erreur si l'élément spécifié par `selector`
+n'est pas trouvé dans le document.
 
 > Note: Le composant se ferme automatiquement au bout de 5 secondes,
 puis il est retiré du DOM.
@@ -112,7 +123,7 @@ puis il est retiré du DOM.
 
 ```javascript
 // création de l'élément
-const div = document.createElement('div')
+const div = document.createElement('div');
 div.id = 'conteneur';
 document.body.appendChild(div);
 
@@ -131,9 +142,12 @@ setTimeout(function(){
   console.log(document.getElementById('conteneur'));
   },
 5000); // délai de 5 secondes
+
+// test de l'émission de l'erreur
+notify(msg, '#introuvable', classes);
 ```
 
-#### Résultat attendu
+#### Résultats attendus
 
 ```xml
 <div id="conteneur">
@@ -154,6 +168,10 @@ setTimeout(function(){
 null
 ```
 
+```javascript
+Error: Could not find element to inject notification
+```
+
 ## [pageUtils.js](/src/js/helpers/pageUtils.js)
 
 ### [`isCurrentPage(path)`](/src/js/helpers/pageUtils.js#L1-L3)
@@ -161,7 +179,7 @@ null
 Renvoie `true` si `path` est égale au chemin de l’url de la page courante,
 `false` si ce n’est pas le cas.
 
-> Note: Ne prend pas en compte la barre oblique finale des deux valeurs
+> Note: Ne prend pas en compte l'éventuelle barre oblique finale des deux valeurs
 > lors de leur comparaison.
 
 #### Test
@@ -192,7 +210,7 @@ true
 
 ### [`stripTrailingSlash(str)`](/src/js/helpers/pageUtils.js#L17-L23)
 
-Retire la barre oblique finale d'une chaîne de caractère `str` dont la longueur
+Retire la barre oblique finale d'une chaîne de caractères `str` dont la longueur
 est supérieure à 1.
 
 #### Test
@@ -226,7 +244,9 @@ afin de pouvoir appeler d'autres méthodes en chaîne.
 
 ```javascript
 // création de l'élément
-document.createElement('div').id = 'conteneur';
+const div = document.createElement('div');
+div.id = 'conteneur';
+document.body.appendChild(div);
 
 // création de l'objet hérité de la classe
 const htmlStr = '<div>Hello from <strong>Template</strong>!</div>';
@@ -249,23 +269,35 @@ console.log(document.getElementById('conteneur').outerHTML);
 
 ### [`renderAlert(msg)`](/src/js/helpers/template.js#L23-L27)
 
-Méthode statique de la classe Template qui injecte le contenu HTML du composant
+Méthode statique de la classe `Template` qui retourne un nouvel objet hérité
+de la même classe.
+
+Cet objet est initialisé avec le code HTML du composant
 [Alert de Bootstrap](https://getbootstrap.com/docs/5.0/components/alerts)
-avec la chaîne de caractère `msg` en contenu.
+, auquel la chaîne de caractères `msg` est ajoutée dans son contenu.
 
 #### Test
 
 ```javascript
 // appel de la méthode statique
-Template.renderAlert('ceci est un message d\'alerte');
+const AlertTemplate = Template.renderAlert('ceci est un message d\'alerte');
 
 // affichage du résultat
-console.log(document.querySelector('.alert').outerHTML);
+console.log(AlertTemplate);
+console.log(AlertTemplate.fragment);
 ```
 
 #### Résultat attendu
 
+```javascript
+Object Template {
+  raw: String,
+  fragment: document-fragment
+}
+```
+
 ```xml
+#document-fragment
 <div class="alert alert-info" role="alert">
   <p class="text-center m-0">ceci est un message d'alerte</p>
 </div>
@@ -273,23 +305,36 @@ console.log(document.querySelector('.alert').outerHTML);
 
 ### [`renderToast(msg, ?classes)`](/src/js/helpers/template.js#L29-L39)
 
-Méthode statique de la classe Template qui injecte le contenu HTML du composant
+Méthode statique de la classe `Template` qui retourne un nouvel objet hérité
+de la même classe.
+
+Cet objet est initialisé avec le code HTML du composant
 [Toast de Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts)
-avec les classes css spécifiées et la chaîne de caractère `msg` en contenu.
+, auquel la chaîne de caractères `msg` est ajoutée dans son contenu
+ainsi que les `classes` CSS spécifiées.
 
 #### Test
 
 ```javascript
 // appel de la méthode statique
-Template.renderToast('ceci est un composant Toast', 'text-white bg-primary');
+const ToastTemplate = Template.renderToast('ceci est un composant Toast', 'text-white bg-primary');
 
 // affichage du résultat
-console.log(document.querySelector('.toast-container').outerHTML);
+console.log(ToastTemplate);
+console.log(ToastTemplate.fragment);
 ```
 
 #### Résultat attendu
 
+```javascript
+Object Template {
+  raw: String,
+  fragment: document-fragment
+}
+```
+
 ```xml
+#document-fragment
 <div class="toast-container position-absolute p-3 top-0 end-0">
   <div class="toast d-flex align-items-center text-white bg-primary"
     role="alert" aria-live="assertive" aria-atomic="true">
@@ -372,21 +417,21 @@ Error: (400) Bad Request
 
 ### [`injectCart(selector, ?replace)`](/src/js/controllers/checkoutController.js#L39-L49)
 
-Méthode de la classe `CheckoutController` qui injecte des éléments
-représentant le contenu du panier à l'endroit spécifié par `selector`.
+Méthode de la classe `CheckoutController` qui injecte des éléments enfants
+représentant le contenu du panier à l'élément spécifié par `selector`.
 
 Si `replace` vaut `true`, alors les éléments enfants déjà présents,
 sont remplacés.
 
-> Note: Retourne l'objet hérité de la classe
-afin de pouvoir appeler d'autres méthodes en chaîne.
+> Note: Ne fait rien si l'élément spécifié par `selector`
+n'est pas trouvé dans le document.
 
 #### Test
 
 ```javascript
 // création de l'élément
-const div = document.createElement('panier');
-div.id = 'conteneur';
+const div = document.createElement('div');
+div.id = 'panier';
 document.body.appendChild(div);
 
 // ajout de produits dans le panier
@@ -461,6 +506,7 @@ localStorage.setItem('products', JSON.stringify(products));
 // création de l'élément
 const div = document.createElement('div');
 div.id = 'conteneur';
+document.body.appendChild(div);
 
 // appel de la méthode
 new OrderConfirmedController().injectTotalPrice('#conteneur');
@@ -480,16 +526,22 @@ console.log(document.querySelector('#conteneur').outerHTML);
 ### [`injectById(id, selector)`](/src/js/controllers/productController.js#L66-L93)
 
 Méthode asynchrone de la classe `ProductController` qui injecte le code HTML correspondant
-au produit dont l'id est `id`, provenant de l'API, à l'élément spécifié via `selector`.
+au produit dont l'id est `id`, provenant de l'API, à l'élément spécifié via `selector`,
+remplaçant tous ses enfants.
 
-Injecte le composant Alert avec un message d'erreur,
-si la requête vers l'API ou sa réponse, renvoie une erreur.
+Injecte le composant [Alert](https://getbootstrap.com/docs/5.0/components/alerts)
+avec un message d'erreur si la méthode intercepte une erreur lors de son éxecution.
+
+> Note: Ne fait rien si l'élément spécifié par `selector`
+n'est pas trouvé dans le document.
 
 #### Test
 
 ```javascript
 // création de l'élément
-document.createElement('div').id = 'conteneur';
+const div = document.createElement('div');
+div.id = 'conteneur';
+document.body.appendChild(div);
 
 // appel de la méthode
 const resolved = new ProductController().injectById('5be9cc611c9d440000c1421e', '#conteneur');
