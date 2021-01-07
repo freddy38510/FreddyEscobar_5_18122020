@@ -17,8 +17,6 @@ const templateFiles = glob.sync('**/*', { cwd: path.join(environment.paths.sourc
 const htmlPluginEntries = templateFiles.map((template) => new HTMLWebpackPlugin({
   inject: true,
   hash: false,
-  publicPath: '/',
-  base: true,
   filename: template,
   template: path.resolve(environment.paths.source, 'templates', template),
   scriptLoading: 'defer',
@@ -60,7 +58,6 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: 'images/[name].[ext]',
-              publicPath: '../',
               limit: environment.limits.images,
             },
           },
@@ -73,7 +70,6 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: 'fonts/[name].[hash:6].[ext]',
-              publicPath: '../',
               limit: environment.limits.fonts,
             },
           },
