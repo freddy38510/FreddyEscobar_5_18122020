@@ -28,7 +28,6 @@
     "eslint": "7.16.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
-    "file-loader": "6.2.0",
     "glob": "7.1.6",
     "html-webpack-plugin": "4.5.0",
     "image-minimizer-webpack-plugin": "2.1.0",
@@ -59,10 +58,8 @@
     "url": "git@github.com:freddy38510/FreddyEscobar_5_18122020.git"
   },
   "scripts": {
-    "build": "webpack --config configuration/webpack.dev.config.js --mode=development",
-    "watch": "webpack --config configuration/webpack.dev.config.js --mode=development --watch",
     "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
-    "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
+    "prod": "webpack --config configuration/webpack.prod.config.js --mode=production",
     "lint:sass": "sass-lint 'src/scss/*' -v -q",
     "lint:js": "eslint --ext .js src/js/"
   },
