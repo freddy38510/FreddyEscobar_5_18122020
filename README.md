@@ -36,7 +36,7 @@ yarn serve
 ```
 
 L'application est maintenant disponible
-à l'adresse [http://localhost:8000](http://localhost:8000).
+à l'adresse [http://localhost:8080](http://localhost:8080).
 
 ## Ressources
 
