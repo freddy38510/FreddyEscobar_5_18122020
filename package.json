@@ -31,6 +31,7 @@
     "file-loader": "6.2.0",
     "glob": "7.1.6",
     "html-webpack-plugin": "4.5.1",
+    "http-server": "0.12.3",
     "image-minimizer-webpack-plugin": "2.1.0",
     "imagemin-gifsicle": "7.0.0",
     "imagemin-jpegtran": "7.0.0",
@@ -61,6 +62,7 @@
   "scripts": {
     "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
     "prod": "webpack --config configuration/webpack.prod.config.js --mode=production",
+    "serve": "http-server dist",
     "lint:sass": "sass-lint 'src/scss/*' -v -q",
     "lint:js": "eslint --ext .js src/js/"
   },
