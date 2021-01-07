@@ -10,6 +10,8 @@ lors de la soutenance du projet n°5.
 
 ## Utilisation
 
+> Note: Vous pouvez remplacer `yarn` par `npm`.
+
 - Clonez le dépôt du backend, installez les dépendances, puis lancez le serveur
 
 ```bash
@@ -21,20 +23,20 @@ node server
 ```
 
 - Clonez le dépôt du frontend, installer les dépendances,
-puis lancez le serveur web issu de `webpack-dev-server`.
+construisez l'application puis lancez le serveur web
 
 ```bash
 git clone https://github.com/freddy38510/FreddyEscobar_5_18122020.git && cd FreddyEscobar_5_18122020
 
 yarn
 
-yarn dev
+yarn prod
+
+yarn serve
 ```
 
-La dernière commande ouvre automatiquement votre navigateur par défaut
+L'application est maintenant disponible
 à l'adresse [http://localhost:8000](http://localhost:8000).
-
-> Note: Vous pouvez remplacer `yarn` par `npm`.
 
 ## Ressources
 
